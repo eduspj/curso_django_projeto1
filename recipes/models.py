@@ -1,3 +1,40 @@
+from turtle import title
+
 from django.db import models
 
 # Create your models here.
+
+
+class Category(models.Model):
+    name = models.CharField(max_length=65)
+
+
+class Recipe(models.Model):
+    title = models.CharField(max_length=65)
+    description = models.CharField(max_length=165)
+    slug = models.SlugField()
+    preparation_time = models.IntegerField()
+    preparation_time_unit = models.CharField(max_length=65)
+    servings = models.IntegerField()
+    servings_unit = models.CharField(max_length=65)
+    preparation_steps = models.TextField()
+    preparation_steps_is_html = models.BooleanField(default=False)
+    # No momento da criação adiciona a data atual
+    created_at = models.DateTimeField(auto_now_add=True)
+    update_at = models.DateTimeField(auto_now=True)  # Data de atualização
+    is_published = models.BooleanField(default=False)
+    cover = models.ImageField(upload_to='recipes/covers/%Y/%m/%d/')
+    category = models.ForeignKey(
+        Category, on_delete=models.SET_NULL, null=True)
+
+# EDITED
+# title description slug
+# preparation_time preparation_time_unit
+# servings servings_unit
+# preparation_step
+# preparation_step_is_html
+# created_at updated_at
+# is_published
+# cover
+# category (Relação)
+# Author (Relação)
